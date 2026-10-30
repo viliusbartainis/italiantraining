@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itališkosios Partijos Treneris</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #121212; color: #fff; text-align: center; padding: 20px; margin: 0; }
+        .container { background: #1e1e1e; padding: 30px; border-radius: 12px; max-width: 550px; margin: 40px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.6); }
+        h1 { color: #4CAF50; margin-bottom: 10px; }
+        p.subtitle { color: #aaa; font-size: 14px; margin-bottom: 25px; }
+        .question-box { background: #2a2a2a; padding: 20px; border-radius: 8px; font-size: 18px; margin-bottom: 20px; border-left: 4px solid #4CAF50; text-align: left; }
+        .answer-box { font-size: 16px; color: #81C784; background: #1b3320; padding: 12px; border-radius: 6px; display: none; margin-bottom: 20px; text-align: left; }
+        button { background: #4CAF50; color: white; border: none; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; margin: 5px; }
+        button:hover { background: #45a049; }
+        button.secondary { background: #333; }
+        button.secondary:hover { background: #444; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Italian Game Trainer</h1>
+        <p class="subtitle">Užmasterink Itališkąją partiją (1.e4 e5 2.Nf3 Nc6 3.Bc4)</p>
+        
+        <div class="question-box" id="qBox">Spausk „Pradėti“, kad pradėtum treniruotę!</div>
+        <div class="answer-box" id="aBox"></div>
+
+        <button id="showAnsBtn" class="secondary" onclick="toggleAnswer()" style="display:none;">Rodyti atsakymą</button>
+        <button id="nextBtn" onclick="nextStep()">Pradėti</button>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const steps = [
+            { q: "Koks yra 1-asis Baltųjų ėjimas (King's Pawn)?", a: "1. e4" },
+            { q: "Juodieji atsako 1... e5. Koks tavo 2-asis ėjimas?", a: "2. Nf3" },
+            { q: "Juodieji atsako 2... Nc6. Koks tavo 3-iasis ėjimas išvedant rikį?", a: "3. Bc4 (Itališkoji partija)" },
+            { q: "Juodieji atsako 3... Bc5 (Giuoco Piano). Koks tavo 4-as ėjimas, ruošiant d4 centrą?", a: "4. c3" },
+            { q: "Po 3... Bc5 4.c3 Nf6, koks tavo 5-as ėjimas atidarant centrą?", a: "5. d4!" },
+            { q: "Jei juodieji renkasi Two Knights Defense: 3... Nf6, koks agresyvus 4-as ėjimas puolant f7?", a: "4. Ng5! (Fried Liver / Lolli ataka)" },
+            { q: "Po 3... Nf6 4.Ng5 d5 5.exd5 Na5 6.Bb5+ c6 7.dxc6 bxc6, kur traukiasi tavo rikis?", a: "8. Be2!" }
+        ];
+
+        function nextStep() {
+            const qBox = document.getElementById("qBox");
+            const aBox = document.getElementById("aBox");
+            const showBtn = document.getElementById("showAnsBtn");
+            const nextBtn = document.getElementById("nextBtn");
+
+            if (currentStep < steps.length) {
+                qBox.innerHTML = `<b>Žingsnis ${currentStep + 1} iš ${steps.length}:</b><br>${steps[currentStep].q}`;
+                aBox.innerHTML = `<b>Teisingas atsakymas:</b> ${steps[currentStep].a}`;
+                aBox.style.display = "none";
+                showBtn.style.display = "inline-block";
+                nextBtn.innerText = "Kitas klausimas";
+                currentStep++;
+            } else {
+                qBox.innerHTML = "🎉 Šaunuolis! Išėjai visus pagrindinius Itališkosios partijos variantus.";
+                aBox.style.display = "none";
+                showBtn.style.display = "none";
+                nextBtn.innerText = "Pradėti iš naujo";
+                currentStep = 0;
+            }
+        }
+
+        function toggleAnswer() {
+            const aBox = document.getElementById("aBox");
+            aBox.style.display = aBox.style.display === "none" ? "block" : "none";
+        }
+    </script>
+</body>
+</html>
